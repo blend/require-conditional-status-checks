@@ -17,7 +17,7 @@ jobs:
     - ubuntu-20.04
 
     steps:
-    - name: Ensure All Optional Checks Have Passed
+    - name: Ensure All Conditional Checks Have Passed
       uses: blend/action-composite@2021.11.18
       with:
         checks-yaml: |
@@ -33,7 +33,7 @@ Alternatively, the `checks-yaml` can be checked into a file in your repository
 ```yaml
 # ...
     steps:
-    - name: Ensure All Optional Checks Have Passed
+    - name: Ensure All Conditional Checks Have Passed
       uses: blend/action-composite@2021.11.18
       with:
         checks-filename: .github/monorepo/required-checks.yml

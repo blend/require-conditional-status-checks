@@ -58,6 +58,8 @@ From a recent workflow on GitHub Enterprise:
     of files is critical for `blend/action-composite` to determine which
     checks to enforce.
 
+<!-- No-op -->
+
 ## Development
 
 For more information on how this GitHub Action is developed, see the

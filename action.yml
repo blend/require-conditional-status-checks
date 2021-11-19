@@ -13,9 +13,9 @@
 # limitations under the License.
 
 ---
-name: Composite
+name: Composite - Conditional Checks for Monorepos
 description: >
-  Compose multiple (optional) checks into a single check based on file paths
+  Compose multiple (conditional) checks into a single check based on file paths
   in a pull request
 author: Blend Labs, Inc.
 inputs:
@@ -50,3 +50,7 @@ inputs:
 runs:
   using: node12
   main: index.js
+
+branding:
+  icon: umbrella
+  color: gray-dark

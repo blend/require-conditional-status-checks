@@ -20,7 +20,7 @@ import (
 
 	"github.com/blend/go-sdk/assert"
 	"github.com/blend/go-sdk/ref"
-	githubofficial "github.com/google/go-github/v40/github"
+	githubofficial "github.com/google/go-github/v42/github"
 
 	"github.com/blend/action-composite/pkg/composite"
 )

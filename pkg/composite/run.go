@@ -21,7 +21,7 @@ import (
 
 	"github.com/blend/go-sdk/ansi"
 	"github.com/blend/go-sdk/ex"
-	"github.com/google/go-github/v40/github"
+	"github.com/google/go-github/v42/github"
 	githubactions "github.com/sethvargo/go-githubactions"
 
 	githubshim "github.com/blend/action-composite/pkg/github"

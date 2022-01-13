@@ -178,6 +178,7 @@ type Client struct {
 	Billing        *BillingService
 	Checks         *ChecksService
 	CodeScanning   *CodeScanningService
+	Dependabot     *DependabotService
 	Enterprise     *EnterpriseService
 	Gists          *GistsService
 	Git            *GitService
@@ -306,6 +307,7 @@ func NewClient(httpClient *http.Client) *Client {
 	c.Billing = (*BillingService)(&c.common)
 	c.Checks = (*ChecksService)(&c.common)
 	c.CodeScanning = (*CodeScanningService)(&c.common)
+	c.Dependabot = (*DependabotService)(&c.common)
 	c.Enterprise = (*EnterpriseService)(&c.common)
 	c.Gists = (*GistsService)(&c.common)
 	c.Git = (*GitService)(&c.common)
@@ -477,6 +479,10 @@ type Response struct {
 	// Set ListCursorOptions.Cursor to this value when calling the endpoint again.
 	Cursor string
 
+	// For APIs that support before/after pagination, such as OrganizationsService.AuditLog.
+	Before string
+	After  string
+
 	// Explicitly specify the Rate type so Rate's String() receiver doesn't
 	// propagate to Response.
 	Rate Rate
@@ -532,8 +538,16 @@ func (r *Response) populatePageValues() {
 			}
 
 			page := q.Get("page")
-			if page == "" {
+			since := q.Get("since")
+			before := q.Get("before")
+			after := q.Get("after")
+
+			if page == "" && before == "" && after == "" && since == "" {
 				continue
+			}
+
+			if since != "" && page == "" {
+				page = since
 			}
 
 			for _, segment := range segments[1:] {
@@ -542,8 +556,10 @@ func (r *Response) populatePageValues() {
 					if r.NextPage, err = strconv.Atoi(page); err != nil {
 						r.NextPageToken = page
 					}
+					r.After = after
 				case `rel="prev"`:
 					r.PrevPage, _ = strconv.Atoi(page)
+					r.Before = before
 				case `rel="first"`:
 					r.FirstPage, _ = strconv.Atoi(page)
 				case `rel="last"`:
@@ -870,7 +886,7 @@ func (ae *AcceptedError) Is(target error) bool {
 }
 
 // AbuseRateLimitError occurs when GitHub returns 403 Forbidden response with the
-// "documentation_url" field value equal to "https://docs.github.com/en/free-pro-team@latest/rest/reference/#abuse-rate-limits".
+// "documentation_url" field value equal to "https://docs.github.com/en/free-pro-team@latest/rest/overview/resources-in-the-rest-api#secondary-rate-limits".
 type AbuseRateLimitError struct {
 	Response *http.Response // HTTP response that caused this error
 	Message  string         `json:"message"` // error message
@@ -989,7 +1005,9 @@ func CheckResponse(r *http.Response) error {
 			Response: errorResponse.Response,
 			Message:  errorResponse.Message,
 		}
-	case r.StatusCode == http.StatusForbidden && strings.HasSuffix(errorResponse.DocumentationURL, "#abuse-rate-limits"):
+	case r.StatusCode == http.StatusForbidden &&
+		(strings.HasSuffix(errorResponse.DocumentationURL, "#abuse-rate-limits") ||
+			strings.HasSuffix(errorResponse.DocumentationURL, "#secondary-rate-limits")):
 		abuseRateLimitError := &AbuseRateLimitError{
 			Response: errorResponse.Response,
 			Message:  errorResponse.Message,

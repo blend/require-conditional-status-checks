@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"github.com/blend/go-sdk/ex"
-	"github.com/google/go-github/v40/github"
+	"github.com/google/go-github/v42/github"
 	githubactions "github.com/sethvargo/go-githubactions"
 	yaml "gopkg.in/yaml.v3"
 

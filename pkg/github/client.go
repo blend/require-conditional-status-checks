@@ -21,7 +21,7 @@ import (
 	"net/url"
 
 	"github.com/blend/go-sdk/ex"
-	"github.com/google/go-github/v40/github"
+	"github.com/google/go-github/v42/github"
 	"golang.org/x/oauth2"
 )
 

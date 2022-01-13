@@ -37,10 +37,10 @@ func Run(action *githubactions.Action) error {
 		return err
 	}
 
-	action.Infof("%s %s\n", ansi.Color256Gold3Alt2.Apply("[CONFIG]  Timeout:"), cfg.Timeout)
-	action.Infof("%s %s\n", ansi.Color256Gold3Alt2.Apply("[CONFIG] Interval:"), cfg.Interval)
-	action.Infof("%s %s\n", ansi.Color256Gold3Alt2.Apply("[CONFIG]     Base:"), cfg.BaseSHA)
-	action.Infof("%s %s\n", ansi.Color256Gold3Alt2.Apply("[CONFIG]     Head:"), cfg.HeadSHA)
+	action.Infof("%s %s", ansi.Color256Gold3Alt2.Apply("[CONFIG]  Timeout:"), cfg.Timeout)
+	action.Infof("%s %s", ansi.Color256Gold3Alt2.Apply("[CONFIG] Interval:"), cfg.Interval)
+	action.Infof("%s %s", ansi.Color256Gold3Alt2.Apply("[CONFIG]     Base:"), cfg.BaseSHA)
+	action.Infof("%s %s", ansi.Color256Gold3Alt2.Apply("[CONFIG]     Head:"), cfg.HeadSHA)
 	ctx, cancel := context.WithTimeout(context.Background(), cfg.Timeout)
 	defer cancel()
 
@@ -67,7 +67,7 @@ func Run(action *githubactions.Action) error {
 		}
 
 		if required {
-			action.Infof("%s %s\n", ansi.Blue("Required Job:"), check.Job)
+			action.Infof("%s %s", ansi.Blue("Required Job:"), check.Job)
 			incomplete = append(incomplete, check.Job)
 		}
 	}
@@ -102,7 +102,7 @@ func Wait(ctx context.Context, action *githubactions.Action, client *github.Clie
 			return nil
 		}
 
-		action.Infof("Sleeping for %s...\n", cfg.Interval)
+		action.Infof("Sleeping for %s...", cfg.Interval)
 		time.Sleep(cfg.Interval)
 	}
 }
@@ -143,7 +143,7 @@ func CheckSatisfied(ctx context.Context, action *githubactions.Action, client *g
 		if status == "completed" {
 			if conclusion == "success" {
 				action.Infof(
-					"%[1]s %[2]s (%[3]s %[4]s)\n",
+					"%[1]s %[2]s (%[3]s %[4]s)",
 					ansi.Green("Check was successful:"), // 1
 					name,                                // 2
 					ansi.Green("Run ID:"),               // 3
@@ -164,7 +164,7 @@ func CheckSatisfied(ctx context.Context, action *githubactions.Action, client *g
 
 		incomplete = append(incomplete, name)
 		action.Infof(
-			"%[1]s %[2]s (%[3]s %[4]s, %[5]s %[6]s)\n",
+			"%[1]s %[2]s (%[3]s %[4]s, %[5]s %[6]s)",
 			ansi.Color256Gold3Alt2.Apply("Check is not complete:"), // 1
 			name,                                    // 2
 			ansi.Color256Gold3Alt2.Apply("Status:"), // 3

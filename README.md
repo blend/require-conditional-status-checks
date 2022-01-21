@@ -7,4 +7,4 @@ The documentation and source code for this action are maintained there. This
 branch is intended to be as small as possible so it can be loaded quickly
 when new jobs retrieve it when spawned as part of a GitHub Actions workflow.
 
-[1]: https://github.com/blend/action-composite/tree/bbed6f43c4e00a8672af61016e8fdc3a87846d85
+[1]: https://github.com/blend/action-composite/tree/7586da331a1ce003a321cc16ac72319d78c7764b

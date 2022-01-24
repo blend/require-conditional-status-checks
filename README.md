@@ -18,14 +18,21 @@ jobs:
 
     steps:
     - name: Ensure All Conditional Checks Have Passed
-      uses: blend/action-composite@2021.11.18
+      uses: blend/action-composite@2022.01.21
       with:
         checks-yaml: |
-          - job: sleep1
-          - job: sleep2
+          - job: unit-test-go-core
             paths:
-            - changed/**
-            - prefix/**
+            - cmd/**
+            - pkg/**
+          - job: lint-go
+          - job: protobuf-check-generated
+            paths:
+            - proto/**
+            - pkg/protogen/**
+          - job: lint-protobuf
+            paths:
+            - proto/**
 ```
 
 Alternatively, the `checks-yaml` can be checked into a file in your repository
@@ -34,7 +41,7 @@ Alternatively, the `checks-yaml` can be checked into a file in your repository
 # ...
     steps:
     - name: Ensure All Conditional Checks Have Passed
-      uses: blend/action-composite@2021.11.18
+      uses: blend/action-composite@2022.01.21
       with:
         checks-filename: .github/monorepo/required-checks.yml
 # ...

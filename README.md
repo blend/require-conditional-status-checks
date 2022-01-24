@@ -4,7 +4,7 @@
 
 ```yaml
 ---
-name: All Checks
+name: 'Meta Workflow: Composite'
 
 on:
   pull_request:

@@ -20,6 +20,7 @@ jobs:
     - name: Ensure All Conditional Checks Have Passed
       uses: blend/action-composite@2022.01.21
       with:
+        interval: 20s
         checks-yaml: |
           - job: unit-test-go-core
             paths:
@@ -43,6 +44,7 @@ Alternatively, the `checks-yaml` can be checked into a file in your repository
     - name: Ensure All Conditional Checks Have Passed
       uses: blend/action-composite@2022.01.21
       with:
+        interval: 20s
         checks-filename: .github/monorepo/required-checks.yml
 # ...
 ```

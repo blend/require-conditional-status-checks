@@ -17,7 +17,7 @@ package main
 import (
 	githubactions "github.com/sethvargo/go-githubactions"
 
-	"github.com/blend/require-conditional-status-checks/pkg/composite"
+	composite "github.com/blend/require-conditional-status-checks/pkg/requireconditional"
 )
 
 func main() {

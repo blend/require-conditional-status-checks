@@ -28,8 +28,8 @@ import (
 	"github.com/google/go-github/v42/github"
 	githubactions "github.com/sethvargo/go-githubactions"
 
-	"github.com/blend/require-conditional-status-checks/pkg/composite"
 	githubshim "github.com/blend/require-conditional-status-checks/pkg/github"
+	composite "github.com/blend/require-conditional-status-checks/pkg/requireconditional"
 )
 
 func TestNewFromInputs(t *testing.T) {

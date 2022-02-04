@@ -10,12 +10,12 @@
     import (
     	githubactions "github.com/sethvargo/go-githubactions"
 
-    	"github.com/blend/require-conditional-status-checks/pkg/composite"
+    	"github.com/blend/require-conditional-status-checks/pkg/requireconditional"
     )
 
     func main() {
     	action := githubactions.New()
-    	err := composite.Run(action)
+    	err := requireconditional.Run(action)
     	if err != nil {
     		action.Fatalf("%v", err)
     	}
@@ -109,7 +109,7 @@ env \
     `make generate-index`.
 -   The `action.yml` file describing the inputs and outputs and the entrypoint
     binary will need to be copied over to the `main` branch. This file should
-    always stay in sync with the code in `pkg/composite/config.go`.
+    always stay in sync with the code in `pkg/requireconditional/config.go`.
 -   The content in the `main` branch can remain minimal and the `README.md` can
     just point back to the `development` branch. By keeping the content
     minimal, running a new workflow via GitHub Actions will be able to download

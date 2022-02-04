@@ -12,6 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package composite provides the core implementation for the
+// Package requireconditional provides the core implementation for the
 // `blend/require-conditional-status-checks` GitHub Action.
-package composite
+package requireconditional

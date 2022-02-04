@@ -133,7 +133,7 @@ func TestConfig_Validate(t *testing.T) {
 	// Failure; `EventName`
 	c := composite.Config{EventName: "push"}
 	err := c.Validate()
-	it.Equal(`The Composite Action can only run on pull requests; Event Name: "push"`, fmt.Sprintf("%v", err))
+	it.Equal(`The Require Conditional Status Checks Action can only run on pull requests; Event Name: "push"`, fmt.Sprintf("%v", err))
 
 	// Failure; `EventAction`
 	c = composite.Config{
@@ -141,7 +141,7 @@ func TestConfig_Validate(t *testing.T) {
 		EventAction: "converted_to_draft",
 	}
 	err = c.Validate()
-	it.Equal(`The Composite Action can only run on pull request types spawned by code changes; Event Action: "converted_to_draft"`, fmt.Sprintf("%v", err))
+	it.Equal(`The Require Conditional Status Checks Action can only run on pull request types spawned by code changes; Event Action: "converted_to_draft"`, fmt.Sprintf("%v", err))
 
 	// Failure; `BaseSHA`
 	c = composite.Config{
@@ -168,7 +168,7 @@ func TestConfig_Validate(t *testing.T) {
 		HeadSHA:     "5d87b421641a22dac8981bfe98be7e9d1cece8e0",
 	}
 	err = c.Validate()
-	it.Equal("The Composite Action requires a GitHub owner or org", fmt.Sprintf("%v", err))
+	it.Equal("The Require Conditional Status Checks Action requires a GitHub owner or org", fmt.Sprintf("%v", err))
 
 	// Failure; `GitHubRepo`
 	c = composite.Config{
@@ -179,7 +179,7 @@ func TestConfig_Validate(t *testing.T) {
 		HeadSHA:     "5d87b421641a22dac8981bfe98be7e9d1cece8e0",
 	}
 	err = c.Validate()
-	it.Equal("The Composite Action requires a GitHub repository", fmt.Sprintf("%v", err))
+	it.Equal("The Require Conditional Status Checks Action requires a GitHub repository", fmt.Sprintf("%v", err))
 
 	// Failure; `GitHubRootURL`
 	c = composite.Config{
@@ -191,7 +191,7 @@ func TestConfig_Validate(t *testing.T) {
 		HeadSHA:     "5d87b421641a22dac8981bfe98be7e9d1cece8e0",
 	}
 	err = c.Validate()
-	it.Equal("The Composite Action requires a GitHub root URL", fmt.Sprintf("%v", err))
+	it.Equal("The Require Conditional Status Checks Action requires a GitHub root URL", fmt.Sprintf("%v", err))
 
 	// Failure; `GitHubToken`
 	c = composite.Config{
@@ -204,7 +204,7 @@ func TestConfig_Validate(t *testing.T) {
 		HeadSHA:       "5d87b421641a22dac8981bfe98be7e9d1cece8e0",
 	}
 	err = c.Validate()
-	it.Equal("The Composite Action requires a GitHub API token", fmt.Sprintf("%v", err))
+	it.Equal("The Require Conditional Status Checks Action requires a GitHub API token", fmt.Sprintf("%v", err))
 
 	// Failure; neither `ChecksYAML` and `ChecksFilename`
 	c = composite.Config{
@@ -218,7 +218,7 @@ func TestConfig_Validate(t *testing.T) {
 		HeadSHA:       "5d87b421641a22dac8981bfe98be7e9d1cece8e0",
 	}
 	err = c.Validate()
-	it.Equal("The Composite Action requires exactly one of checks YAML or checks filename; neither are set", fmt.Sprintf("%v", err))
+	it.Equal("The Require Conditional Status Checks Action requires exactly one of checks YAML or checks filename; neither are set", fmt.Sprintf("%v", err))
 
 	// Failure; both `ChecksYAML` and `ChecksFilename`
 	c = composite.Config{
@@ -234,7 +234,7 @@ func TestConfig_Validate(t *testing.T) {
 		HeadSHA:        "5d87b421641a22dac8981bfe98be7e9d1cece8e0",
 	}
 	err = c.Validate()
-	it.Equal("The Composite Action requires exactly one of checks YAML or checks filename; both are set", fmt.Sprintf("%v", err))
+	it.Equal("The Require Conditional Status Checks Action requires exactly one of checks YAML or checks filename; both are set", fmt.Sprintf("%v", err))
 }
 
 func TestConfig_GetChecks(t *testing.T) {

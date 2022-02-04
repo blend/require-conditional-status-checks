@@ -119,10 +119,10 @@ func (c *Config) setDefaults(action *githubactions.Action) error {
 // - Exactly one of `ChecksYAML` and `ChecksFilename` must be set
 func (c Config) Validate() error {
 	if c.EventName != "pull_request" {
-		return ex.New("The Composite Action can only run on pull requests", ex.OptMessagef("Event Name: %q", c.EventName))
+		return ex.New("The Require Conditional Status Checks Action can only run on pull requests", ex.OptMessagef("Event Name: %q", c.EventName))
 	}
 	if !(c.EventAction == "opened" || c.EventAction == "synchronize" || c.EventAction == "reopened") {
-		return ex.New("The Composite Action can only run on pull request types spawned by code changes", ex.OptMessagef("Event Action: %q", c.EventAction))
+		return ex.New("The Require Conditional Status Checks Action can only run on pull request types spawned by code changes", ex.OptMessagef("Event Action: %q", c.EventAction))
 	}
 	if c.BaseSHA == "" {
 		return ex.New("Could not determine the base SHA for this pull request")
@@ -131,22 +131,22 @@ func (c Config) Validate() error {
 		return ex.New("Could not determine the head SHA for this pull request")
 	}
 	if c.GitHubOrg == "" {
-		return ex.New("The Composite Action requires a GitHub owner or org")
+		return ex.New("The Require Conditional Status Checks Action requires a GitHub owner or org")
 	}
 	if c.GitHubRepo == "" {
-		return ex.New("The Composite Action requires a GitHub repository")
+		return ex.New("The Require Conditional Status Checks Action requires a GitHub repository")
 	}
 	if c.GitHubRootURL == "" {
-		return ex.New("The Composite Action requires a GitHub root URL")
+		return ex.New("The Require Conditional Status Checks Action requires a GitHub root URL")
 	}
 	if c.GitHubToken == "" {
-		return ex.New("The Composite Action requires a GitHub API token")
+		return ex.New("The Require Conditional Status Checks Action requires a GitHub API token")
 	}
 	if c.ChecksYAML != "" && c.ChecksFilename != "" {
-		return ex.New("The Composite Action requires exactly one of checks YAML or checks filename; both are set")
+		return ex.New("The Require Conditional Status Checks Action requires exactly one of checks YAML or checks filename; both are set")
 	}
 	if c.ChecksYAML == "" && c.ChecksFilename == "" {
-		return ex.New("The Composite Action requires exactly one of checks YAML or checks filename; neither are set")
+		return ex.New("The Require Conditional Status Checks Action requires exactly one of checks YAML or checks filename; neither are set")
 	}
 
 	return nil

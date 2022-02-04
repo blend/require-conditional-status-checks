@@ -29,7 +29,7 @@ import (
 	githubactions "github.com/sethvargo/go-githubactions"
 
 	githubshim "github.com/blend/require-conditional-status-checks/pkg/github"
-	composite "github.com/blend/require-conditional-status-checks/pkg/requireconditional"
+	requireconditional "github.com/blend/require-conditional-status-checks/pkg/requireconditional"
 )
 
 func TestNewFromInputs(t *testing.T) {
@@ -42,7 +42,7 @@ func TestNewFromInputs(t *testing.T) {
 			"INPUT_TIMEOUT": "y",
 		}),
 	))
-	cfg, err := composite.NewFromInputs(action)
+	cfg, err := requireconditional.NewFromInputs(action)
 	it.Nil(cfg)
 	it.Equal("Invalid input; Input: \"timeout\", Value: \"y\"\ntime: invalid duration \"y\"", fmt.Sprintf("%v", err))
 
@@ -53,7 +53,7 @@ func TestNewFromInputs(t *testing.T) {
 			"INPUT_INTERVAL": "z",
 		}),
 	))
-	cfg, err = composite.NewFromInputs(action)
+	cfg, err = requireconditional.NewFromInputs(action)
 	it.Nil(cfg)
 	it.Equal("Invalid input; Input: \"interval\", Value: \"z\"\ntime: invalid duration \"z\"", fmt.Sprintf("%v", err))
 
@@ -70,7 +70,7 @@ func TestNewFromInputs(t *testing.T) {
 			"GITHUB_EVENT_NAME":  "pull_request",
 		}),
 	))
-	cfg, err = composite.NewFromInputs(action)
+	cfg, err = requireconditional.NewFromInputs(action)
 	it.Nil(cfg)
 	expectedErr := fmt.Sprintf("Failed to parse GitHub Event file as JSON; Path: %s\nunexpected end of JSON input", eventPath)
 	it.Equal(expectedErr, fmt.Sprintf("%v", err))
@@ -89,7 +89,7 @@ func TestNewFromInputs(t *testing.T) {
 			"GITHUB_EVENT_NAME":  "pull_request",
 		}),
 	))
-	cfg, err = composite.NewFromInputs(action)
+	cfg, err = requireconditional.NewFromInputs(action)
 	it.Nil(cfg)
 	it.Equal(`Unexpected GitHub repository format; Repository: ""`, fmt.Sprintf("%v", err))
 
@@ -108,9 +108,9 @@ func TestNewFromInputs(t *testing.T) {
 			"GITHUB_API_URL":     "https://ghe.k8s.invalid/api/v3",
 		}),
 	))
-	cfg, err = composite.NewFromInputs(action)
+	cfg, err = requireconditional.NewFromInputs(action)
 	it.Nil(err)
-	expected := &composite.Config{
+	expected := &requireconditional.Config{
 		GitHubToken:   "561427eed114801b0f69b28593c0ce4ab193d038",
 		Timeout:       31 * time.Minute,
 		Interval:      37 * time.Second,
@@ -131,12 +131,12 @@ func TestConfig_Validate(t *testing.T) {
 	it := assert.New(t)
 
 	// Failure; `EventName`
-	c := composite.Config{EventName: "push"}
+	c := requireconditional.Config{EventName: "push"}
 	err := c.Validate()
 	it.Equal(`The Require Conditional Status Checks Action can only run on pull requests; Event Name: "push"`, fmt.Sprintf("%v", err))
 
 	// Failure; `EventAction`
-	c = composite.Config{
+	c = requireconditional.Config{
 		EventName:   "pull_request",
 		EventAction: "converted_to_draft",
 	}
@@ -144,7 +144,7 @@ func TestConfig_Validate(t *testing.T) {
 	it.Equal(`The Require Conditional Status Checks Action can only run on pull request types spawned by code changes; Event Action: "converted_to_draft"`, fmt.Sprintf("%v", err))
 
 	// Failure; `BaseSHA`
-	c = composite.Config{
+	c = requireconditional.Config{
 		EventName:   "pull_request",
 		EventAction: "synchronize",
 	}
@@ -152,7 +152,7 @@ func TestConfig_Validate(t *testing.T) {
 	it.Equal("Could not determine the base SHA for this pull request", fmt.Sprintf("%v", err))
 
 	// Failure; `HeadSHA`
-	c = composite.Config{
+	c = requireconditional.Config{
 		EventName:   "pull_request",
 		EventAction: "reopened",
 		BaseSHA:     "5063feca9073b0c72c9e5b8b8528702ee16a59e5",
@@ -161,7 +161,7 @@ func TestConfig_Validate(t *testing.T) {
 	it.Equal("Could not determine the head SHA for this pull request", fmt.Sprintf("%v", err))
 
 	// Failure; `GitHubOrg`
-	c = composite.Config{
+	c = requireconditional.Config{
 		EventName:   "pull_request",
 		EventAction: "opened",
 		BaseSHA:     "5063feca9073b0c72c9e5b8b8528702ee16a59e5",
@@ -171,7 +171,7 @@ func TestConfig_Validate(t *testing.T) {
 	it.Equal("The Require Conditional Status Checks Action requires a GitHub owner or org", fmt.Sprintf("%v", err))
 
 	// Failure; `GitHubRepo`
-	c = composite.Config{
+	c = requireconditional.Config{
 		EventName:   "pull_request",
 		EventAction: "opened",
 		GitHubOrg:   "look",
@@ -182,7 +182,7 @@ func TestConfig_Validate(t *testing.T) {
 	it.Equal("The Require Conditional Status Checks Action requires a GitHub repository", fmt.Sprintf("%v", err))
 
 	// Failure; `GitHubRootURL`
-	c = composite.Config{
+	c = requireconditional.Config{
 		EventName:   "pull_request",
 		EventAction: "opened",
 		GitHubOrg:   "look",
@@ -194,7 +194,7 @@ func TestConfig_Validate(t *testing.T) {
 	it.Equal("The Require Conditional Status Checks Action requires a GitHub root URL", fmt.Sprintf("%v", err))
 
 	// Failure; `GitHubToken`
-	c = composite.Config{
+	c = requireconditional.Config{
 		GitHubRootURL: "https://ghe.k8s.invalid/api/v3",
 		EventName:     "pull_request",
 		EventAction:   "opened",
@@ -207,7 +207,7 @@ func TestConfig_Validate(t *testing.T) {
 	it.Equal("The Require Conditional Status Checks Action requires a GitHub API token", fmt.Sprintf("%v", err))
 
 	// Failure; neither `ChecksYAML` and `ChecksFilename`
-	c = composite.Config{
+	c = requireconditional.Config{
 		GitHubToken:   "03d3afa0ee2b533f112c8021e7f7edd9ff00da22",
 		GitHubRootURL: "https://ghe.k8s.invalid/api/v3",
 		EventName:     "pull_request",
@@ -221,7 +221,7 @@ func TestConfig_Validate(t *testing.T) {
 	it.Equal("The Require Conditional Status Checks Action requires exactly one of checks YAML or checks filename; neither are set", fmt.Sprintf("%v", err))
 
 	// Failure; both `ChecksYAML` and `ChecksFilename`
-	c = composite.Config{
+	c = requireconditional.Config{
 		GitHubToken:    "03d3afa0ee2b533f112c8021e7f7edd9ff00da22",
 		ChecksYAML:     "- job: court\n  paths:\n  - spotlight/**\n  - docs/**",
 		ChecksFilename: ".github/monorepo/hoops.yml",
@@ -244,16 +244,16 @@ func TestConfig_GetChecks(t *testing.T) {
 	ctx := context.TODO()
 
 	// Error: invalid `checks-yaml`
-	c := composite.Config{ChecksYAML: "- paths: 'abc''"}
+	c := requireconditional.Config{ChecksYAML: "- paths: 'abc''"}
 	checks, err := c.GetChecks(ctx, &github.Client{})
 	it.Nil(checks)
 	it.Equal("Failed to parse checks file as YAML\nyaml: found unexpected end of stream", fmt.Sprintf("%v", err))
 
 	// Happy path: valid `checks-yaml`
-	c = composite.Config{ChecksYAML: "- job: court\n  paths:\n  - spotlight/**\n  - docs/**\n"}
+	c = requireconditional.Config{ChecksYAML: "- job: court\n  paths:\n  - spotlight/**\n  - docs/**\n"}
 	checks, err = c.GetChecks(ctx, &github.Client{})
 	it.Nil(err)
-	expected := []composite.Check{
+	expected := []requireconditional.Check{
 		{
 			Job:   "court",
 			Paths: []string{"spotlight/**", "docs/**"},
@@ -270,7 +270,7 @@ func TestConfig_GetChecks(t *testing.T) {
 	client, err := githubshim.NewClient(ctx, server.URL+"/api/v3", "test-token")
 	it.Nil(err)
 
-	c = composite.Config{
+	c = requireconditional.Config{
 		ChecksFilename: ".github/not-exist.yml",
 		GitHubOrg:      "fish",
 		GitHubRepo:     "bowl",

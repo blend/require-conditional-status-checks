@@ -17,12 +17,12 @@ package main
 import (
 	githubactions "github.com/sethvargo/go-githubactions"
 
-	composite "github.com/blend/require-conditional-status-checks/pkg/requireconditional"
+	requireconditional "github.com/blend/require-conditional-status-checks/pkg/requireconditional"
 )
 
 func main() {
 	action := githubactions.New()
-	err := composite.Run(action)
+	err := requireconditional.Run(action)
 	if err != nil {
 		action.Fatalf("%v", err)
 	}

@@ -2,8 +2,8 @@
 
 ## Unit Testing and Code Structure
 
--   The `cmd/composite/main.go` script is intended to be as short as possible
-    so we can maximize the amount of code that can be tested:
+-   The `cmd/requireconditional/main.go` script is intended to be as short as
+    possible so we can maximize the amount of code that can be tested:
     ```go
     package main
 
@@ -52,7 +52,8 @@
 In order to sanity check an implementation, it can be quite useful to run
 an action **locally** instead of doing a pre-release and waiting on a fully
 triggered GitHub Actions workflow. To run an action locally, it's enough to
-run the `cmd/composite/main.go` binary with the correct environment variables.
+run the `cmd/requireconditional/main.go` binary with the correct environment
+variables.
 
 There are two types of environment variables needed; the `GITHUB_*` environment
 variables that come with the workflow. See the `dhermes/actions-playground`
@@ -74,7 +75,7 @@ env \
   'INPUT_TIMEOUT=30m' \
   'INPUT_INTERVAL=30s' \
   'INPUT_CHECKS-FILENAME=./tmp/checks.yml' \
-  go run ./cmd/composite/main.go
+  go run ./cmd/requireconditional/main.go
 ```
 
 To locally run an **existing** release of this action, the command would be

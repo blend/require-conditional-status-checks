@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-name: Composite - Conditional Checks for Monorepos
+name: Require Conditional Status Checks
 description: >
   Compose multiple (conditional) checks into a single check based on file paths
   in a pull request
@@ -27,7 +27,7 @@ inputs:
     required: true
     default: 30m
     description: >
-      A maximum duration that the composite action will wait for other actions
+      A maximum duration that the action will wait for other actions
       to complete.
   interval:
     required: true
@@ -48,7 +48,7 @@ inputs:
       (Exactly one of `checks-yaml` and `checks-filename` are required.)
 
 runs:
-  using: node12
+  using: node16
   main: index.js
 
 branding:

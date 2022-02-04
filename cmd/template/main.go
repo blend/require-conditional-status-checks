@@ -21,7 +21,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/blend/action-composite/pkg/template"
+	"github.com/blend/require-conditional-status-checks/pkg/template"
 )
 
 func run() error {

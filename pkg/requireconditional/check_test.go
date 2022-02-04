@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package composite_test
+package requireconditional_test
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ import (
 	"github.com/blend/go-sdk/ref"
 	githubofficial "github.com/google/go-github/v42/github"
 
-	"github.com/blend/action-composite/pkg/composite"
+	"github.com/blend/require-conditional-status-checks/pkg/requireconditional"
 )
 
 func TestCheckRequired(t *testing.T) {
@@ -31,21 +31,21 @@ func TestCheckRequired(t *testing.T) {
 
 	// Early exit when exceeding limit (this uses more memory than we'd like
 	// but that's OK)
-	c := composite.Check{Job: "shark", Paths: []string{"week/**"}}
+	c := requireconditional.Check{Job: "shark", Paths: []string{"week/**"}}
 	cc := &githubofficial.CommitsComparison{Files: make([]*githubofficial.CommitFile, 300)}
 	required, err := c.Required(cc)
 	it.False(required)
 	it.Equal("Commit Comparison contained too many files; File Count: 300", fmt.Sprintf("%v", err))
 
 	// Early exit when there are no paths.
-	c = composite.Check{Job: "all-dem"}
+	c = requireconditional.Check{Job: "all-dem"}
 	cc = &githubofficial.CommitsComparison{}
 	required, err = c.Required(cc)
 	it.Nil(err)
 	it.True(required)
 
 	// No matches
-	c = composite.Check{Job: "shark", Paths: []string{"week/**"}}
+	c = requireconditional.Check{Job: "shark", Paths: []string{"week/**"}}
 	cc = &githubofficial.CommitsComparison{Files: []*githubofficial.CommitFile{
 		{Filename: ref.String("month/fish.txt")},
 	}}
@@ -54,7 +54,7 @@ func TestCheckRequired(t *testing.T) {
 	it.False(required)
 
 	// Match on filename
-	c = composite.Check{Job: "shark", Paths: []string{"week/**"}}
+	c = requireconditional.Check{Job: "shark", Paths: []string{"week/**"}}
 	cc = &githubofficial.CommitsComparison{Files: []*githubofficial.CommitFile{
 		{Filename: ref.String("week/fish.txt")},
 	}}
@@ -63,7 +63,7 @@ func TestCheckRequired(t *testing.T) {
 	it.True(required)
 
 	// Match on `previous_filename`
-	c = composite.Check{Job: "shark", Paths: []string{"week/**"}}
+	c = requireconditional.Check{Job: "shark", Paths: []string{"week/**"}}
 	cc = &githubofficial.CommitsComparison{Files: []*githubofficial.CommitFile{
 		{
 			Status:           ref.String("renamed"),

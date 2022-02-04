@@ -14,7 +14,7 @@
 
 .PHONY: help
 help:
-	@echo 'Makefile for Composite GitHub Action'
+	@echo 'Makefile for Require Conditional Status Checks GitHub Action'
 	@echo ''
 	@echo 'Usage:'
 	@echo '   make generate-index        Generate `index.js` file for current VERSION'
@@ -51,38 +51,38 @@ generate-index: _require-version
 .PHONY: main-darwin-amd64
 main-darwin-amd64: _require-upx _require-version
 	rm -f "main-darwin-amd64-*"
-	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -installsuffix static -o "main-darwin-amd64-$(VERSION)" ./cmd/composite/
+	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -installsuffix static -o "main-darwin-amd64-$(VERSION)" ./cmd/requireconditional/
 	upx -q -9 "main-darwin-amd64-$(VERSION)"
 
 .PHONY: main-darwin-arm64
 main-darwin-arm64: _require-upx _require-version
 	rm -f "main-darwin-arm64-*"
-	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -installsuffix static -o "main-darwin-arm64-$(VERSION)" ./cmd/composite/
+	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -installsuffix static -o "main-darwin-arm64-$(VERSION)" ./cmd/requireconditional/
 	upx -q -9 "main-darwin-arm64-$(VERSION)"
 
 .PHONY: main-linux-amd64
 main-linux-amd64: _require-upx _require-version
 	rm -f "main-linux-amd64-*"
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -installsuffix static -o "main-linux-amd64-$(VERSION)" ./cmd/composite/
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -installsuffix static -o "main-linux-amd64-$(VERSION)" ./cmd/requireconditional/
 	upx -q -9 "main-linux-amd64-$(VERSION)"
 
 .PHONY: main-linux-arm64
 main-linux-arm64: _require-upx _require-version
 	rm -f "main-linux-arm64-*"
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -installsuffix static -o "main-linux-arm64-$(VERSION)" ./cmd/composite/
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -installsuffix static -o "main-linux-arm64-$(VERSION)" ./cmd/requireconditional/
 	upx -q -9 "main-linux-arm64-$(VERSION)"
 
 .PHONY: main-windows-amd64
 main-windows-amd64: _require-upx _require-version
 	rm -f "main-windows-amd64-*"
-	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -installsuffix static -o "main-windows-amd64-$(VERSION)" ./cmd/composite/
+	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -installsuffix static -o "main-windows-amd64-$(VERSION)" ./cmd/requireconditional/
 	upx -q -9 "main-windows-amd64-$(VERSION)"
 
 # NOTE: `upx` can't handle Windows ARM64 executables
 .PHONY: main-windows-arm64
 main-windows-arm64: _require-version
 	rm -f "main-windows-arm64-*"
-	CGO_ENABLED=0 GOOS=windows GOARCH=arm64 go build -ldflags="-s -w" -installsuffix static -o "main-windows-arm64-$(VERSION)" ./cmd/composite/
+	CGO_ENABLED=0 GOOS=windows GOARCH=arm64 go build -ldflags="-s -w" -installsuffix static -o "main-windows-arm64-$(VERSION)" ./cmd/requireconditional/
 
 .PHONY: release
 release: main-linux-amd64 main-linux-arm64 main-darwin-amd64 main-darwin-arm64 main-windows-amd64 main-windows-arm64 generate-index

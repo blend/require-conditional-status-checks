@@ -13,5 +13,5 @@
 // limitations under the License.
 
 // Package github is a focused wrapper around `github.com/google/go-github`
-// with methods needed for `blend/action-composite`.
+// with methods needed for `blend/require-conditional-status-checks`.
 package github

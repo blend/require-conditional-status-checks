@@ -12,6 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package composite provides the core implementation for the
-// `blend/action-composite` GitHub Action.
-package composite
+package main
+
+import (
+	githubactions "github.com/sethvargo/go-githubactions"
+
+	"github.com/blend/require-conditional-status-checks/pkg/requireconditional"
+)
+
+func main() {
+	action := githubactions.New()
+	err := requireconditional.Run(action)
+	if err != nil {
+		action.Fatalf("%v", err)
+	}
+}

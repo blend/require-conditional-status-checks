@@ -1,21 +1,21 @@
-# Development on GitHub Action: Composite
+# Development on GitHub Action: Require Conditional Status Checks
 
 ## Unit Testing and Code Structure
 
--   The `cmd/composite/main.go` script is intended to be as short as possible
-    so we can maximize the amount of code that can be tested:
+-   The `cmd/requireconditional/main.go` script is intended to be as short as
+    possible so we can maximize the amount of code that can be tested:
     ```go
     package main
 
     import (
     	githubactions "github.com/sethvargo/go-githubactions"
 
-    	"github.com/blend/action-composite/pkg/composite"
+    	"github.com/blend/require-conditional-status-checks/pkg/requireconditional"
     )
 
     func main() {
     	action := githubactions.New()
-    	err := composite.Run(action)
+    	err := requireconditional.Run(action)
     	if err != nil {
     		action.Fatalf("%v", err)
     	}
@@ -52,7 +52,8 @@
 In order to sanity check an implementation, it can be quite useful to run
 an action **locally** instead of doing a pre-release and waiting on a fully
 triggered GitHub Actions workflow. To run an action locally, it's enough to
-run the `cmd/composite/main.go` binary with the correct environment variables.
+run the `cmd/requireconditional/main.go` binary with the correct environment
+variables.
 
 There are two types of environment variables needed; the `GITHUB_*` environment
 variables that come with the workflow. See the `dhermes/actions-playground`
@@ -74,15 +75,15 @@ env \
   'INPUT_TIMEOUT=30m' \
   'INPUT_INTERVAL=30s' \
   'INPUT_CHECKS-FILENAME=./tmp/checks.yml' \
-  go run ./cmd/composite/main.go
+  go run ./cmd/requireconditional/main.go
 ```
 
 To locally run an **existing** release of this action, the command would be
 similar
 
 ```
-git clone git@github.com:blend/action-composite.git
-cd ./action-composite
+git clone git@github.com:blend/require-conditional-status-checks.git
+cd ./require-conditional-status-checks
 env \
   'GITHUB_API_URL=https://api.github.com' \
   'GITHUB_REPOSITORY=dhermes/actions-playground' \
@@ -108,7 +109,7 @@ env \
     `make generate-index`.
 -   The `action.yml` file describing the inputs and outputs and the entrypoint
     binary will need to be copied over to the `main` branch. This file should
-    always stay in sync with the code in `pkg/composite/config.go`.
+    always stay in sync with the code in `pkg/requireconditional/config.go`.
 -   The content in the `main` branch can remain minimal and the `README.md` can
     just point back to the `development` branch. By keeping the content
     minimal, running a new workflow via GitHub Actions will be able to download
@@ -118,7 +119,7 @@ env \
 
 ```
 $ make  # OR: make help
-Makefile for Composite GitHub Action
+Makefile for Require Conditional Status Checks GitHub Action
 
 Usage:
    make generate-index        Generate `index.js` file for current VERSION

@@ -18,7 +18,7 @@ import (
 	"github.com/blend/go-sdk/ex"
 	"github.com/google/go-github/v42/github"
 
-	"github.com/blend/action-composite/pkg/gitignore"
+	"github.com/blend/require-conditional-status-checks/pkg/gitignore"
 )
 
 const (

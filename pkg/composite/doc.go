@@ -13,5 +13,5 @@
 // limitations under the License.
 
 // Package composite provides the core implementation for the
-// `blend/action-composite` GitHub Action.
+// `blend/require-conditional-status-checks` GitHub Action.
 package composite

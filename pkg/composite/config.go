@@ -24,8 +24,8 @@ import (
 	githubactions "github.com/sethvargo/go-githubactions"
 	yaml "gopkg.in/yaml.v3"
 
-	"github.com/blend/action-composite/pkg/actions"
-	githubshim "github.com/blend/action-composite/pkg/github"
+	"github.com/blend/require-conditional-status-checks/pkg/actions"
+	githubshim "github.com/blend/require-conditional-status-checks/pkg/github"
 )
 
 // Config represents parsed configuration for this GitHub Action.

@@ -1,4 +1,4 @@
-module github.com/blend/action-composite
+module github.com/blend/require-conditional-status-checks
 
 go 1.17
 

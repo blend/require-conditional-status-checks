@@ -24,7 +24,7 @@ import (
 	"github.com/google/go-github/v42/github"
 	githubactions "github.com/sethvargo/go-githubactions"
 
-	githubshim "github.com/blend/action-composite/pkg/github"
+	githubshim "github.com/blend/require-conditional-status-checks/pkg/github"
 )
 
 // Run executes the composite GitHub Action; it parses a list of checks from

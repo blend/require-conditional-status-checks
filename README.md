@@ -18,7 +18,7 @@ jobs:
 
     steps:
     - name: Ensure All Conditional Checks Have Passed
-      uses: blend/action-composite@2022.01.21
+      uses: blend/require-conditional-status-checks@2022.01.21
       with:
         interval: 20s
         checks-yaml: |
@@ -42,7 +42,7 @@ Alternatively, the `checks-yaml` can be checked into a file in your repository
 # ...
     steps:
     - name: Ensure All Conditional Checks Have Passed
-      uses: blend/action-composite@2022.01.21
+      uses: blend/require-conditional-status-checks@2022.01.21
       with:
         interval: 20s
         checks-filename: .github/monorepo/required-checks.yml
@@ -64,7 +64,7 @@ From a recent workflow on GitHub Enterprise:
 -   The GitHub `CompareCommits()` [API][1] can return at most 300 files
     when comparing two commits. This makes it impossible to determine the
     full list of impacted files for PRs with 300 or more files. The list
-    of files is critical for `blend/action-composite` to determine which
+    of files is critical for `blend/require-conditional-status-checks` to determine which
     checks to enforce.
 
 ## Development

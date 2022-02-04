@@ -25,7 +25,7 @@ import (
 	"github.com/blend/go-sdk/assert"
 	githubactions "github.com/sethvargo/go-githubactions"
 
-	"github.com/blend/action-composite/pkg/actions"
+	"github.com/blend/require-conditional-status-checks/pkg/actions"
 )
 
 func TestPullRequestEvent(t *testing.T) {

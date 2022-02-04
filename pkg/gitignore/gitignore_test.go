@@ -19,7 +19,7 @@ import (
 
 	"github.com/blend/go-sdk/assert"
 
-	github "github.com/blend/action-composite/pkg/gitignore"
+	github "github.com/blend/require-conditional-status-checks/pkg/gitignore"
 )
 
 func TestGitignoreMatch(t *testing.T) {

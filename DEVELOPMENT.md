@@ -10,7 +10,7 @@
     import (
     	githubactions "github.com/sethvargo/go-githubactions"
 
-    	"github.com/blend/action-composite/pkg/composite"
+    	"github.com/blend/require-conditional-status-checks/pkg/composite"
     )
 
     func main() {
@@ -81,7 +81,7 @@ To locally run an **existing** release of this action, the command would be
 similar
 
 ```
-git clone git@github.com:blend/action-composite.git
+git clone git@github.com:blend/require-conditional-status-checks.git
 cd ./action-composite
 env \
   'GITHUB_API_URL=https://api.github.com' \

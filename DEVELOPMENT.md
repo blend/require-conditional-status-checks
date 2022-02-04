@@ -82,7 +82,7 @@ similar
 
 ```
 git clone git@github.com:blend/require-conditional-status-checks.git
-cd ./action-composite
+cd ./require-conditional-status-checks
 env \
   'GITHUB_API_URL=https://api.github.com' \
   'GITHUB_REPOSITORY=dhermes/actions-playground' \

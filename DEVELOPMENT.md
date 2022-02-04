@@ -1,4 +1,4 @@
-# Development on GitHub Action: Composite
+# Development on GitHub Action: Require Conditional Status Checks
 
 ## Unit Testing and Code Structure
 
@@ -118,7 +118,7 @@ env \
 
 ```
 $ make  # OR: make help
-Makefile for Composite GitHub Action
+Makefile for Require Conditional Status Checks GitHub Action
 
 Usage:
    make generate-index        Generate `index.js` file for current VERSION

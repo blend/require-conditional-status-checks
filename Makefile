@@ -14,7 +14,7 @@
 
 .PHONY: help
 help:
-	@echo 'Makefile for Composite GitHub Action'
+	@echo 'Makefile for Require Conditional Status Checks GitHub Action'
 	@echo ''
 	@echo 'Usage:'
 	@echo '   make generate-index        Generate `index.js` file for current VERSION'

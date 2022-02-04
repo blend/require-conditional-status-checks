@@ -1,10 +1,10 @@
-# GitHub Action: Composite
+# GitHub Action: Require Conditional Status Checks
 
 ## Example Usage
 
 ```yaml
 ---
-name: 'Meta Workflow: Composite'
+name: 'Meta Workflow: Require Conditional Status Checks'
 
 on:
   pull_request:

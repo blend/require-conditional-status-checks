@@ -27,10 +27,10 @@ import (
 	githubshim "github.com/blend/require-conditional-status-checks/pkg/github"
 )
 
-// Run executes the composite GitHub Action; it parses a list of checks from
-// the GitHub Actions inputs to determine **which** checks should be required
-// for a given pull request. This is directly tied to the files changed in the
-// PR.
+// Run executes the Require Conditional Status Checks GitHub Action; it parses
+// a list of checks from the GitHub Actions inputs to determine **which**
+// checks should be required for a given pull request. This is directly tied
+// to the files changed in the PR.
 func Run(action *githubactions.Action) error {
 	cfg, err := NewFromInputs(action)
 	if err != nil {

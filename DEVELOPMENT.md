@@ -142,15 +142,15 @@ extra costs of `docker pull` or `docker build`.
 
 ### Why Not `using: composite`?
 
-We are not able to use `using: composite`. Instead we use `using: node12` and
+We are not able to use `using: composite`. Instead we use `using: node16` and
 introduce an `index.js` shim to exec out to the correct static Go binary for
 the current `GOOS` and `GOARCH`.
 
 This is due to a limitation of GitHub Actions encountered when using
 [actions-runner-controller][5] in GitHub Enterprise (GHE) 3.1 and earlier. The
-processes spawned with `using: composite` and `using: node12` had nearly
+processes spawned with `using: composite` and `using: node16` had nearly
 identical environment variables, but they differed slightly in critical ways.
-Environment variables only present for `using: node12` were:
+Environment variables only present for `using: node16` were:
 
 ```
 ACTIONS_RUNTIME_TOKEN=***

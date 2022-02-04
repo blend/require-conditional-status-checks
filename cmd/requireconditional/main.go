@@ -17,7 +17,7 @@ package main
 import (
 	githubactions "github.com/sethvargo/go-githubactions"
 
-	requireconditional "github.com/blend/require-conditional-status-checks/pkg/requireconditional"
+	"github.com/blend/require-conditional-status-checks/pkg/requireconditional"
 )
 
 func main() {

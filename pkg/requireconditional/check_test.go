@@ -22,7 +22,7 @@ import (
 	"github.com/blend/go-sdk/ref"
 	githubofficial "github.com/google/go-github/v42/github"
 
-	requireconditional "github.com/blend/require-conditional-status-checks/pkg/requireconditional"
+	"github.com/blend/require-conditional-status-checks/pkg/requireconditional"
 )
 
 func TestCheckRequired(t *testing.T) {

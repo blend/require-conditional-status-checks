@@ -29,7 +29,7 @@ import (
 	githubactions "github.com/sethvargo/go-githubactions"
 
 	githubshim "github.com/blend/require-conditional-status-checks/pkg/github"
-	requireconditional "github.com/blend/require-conditional-status-checks/pkg/requireconditional"
+	"github.com/blend/require-conditional-status-checks/pkg/requireconditional"
 )
 
 func TestNewFromInputs(t *testing.T) {

@@ -18,7 +18,7 @@ jobs:
 
     steps:
     - name: Ensure All Conditional Checks Have Passed
-      uses: blend/require-conditional-status-checks@2022.02.04
+      uses: blend/require-conditional-status-checks@2022.02.09
       with:
         interval: 20s
         checks-yaml: |
@@ -42,7 +42,7 @@ Alternatively, the `checks-yaml` can be checked into a file in your repository
 # ...
     steps:
     - name: Ensure All Conditional Checks Have Passed
-      uses: blend/require-conditional-status-checks@2022.02.04
+      uses: blend/require-conditional-status-checks@2022.02.09
       with:
         interval: 20s
         checks-filename: .github/monorepo/required-checks.yml

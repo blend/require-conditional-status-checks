@@ -34,10 +34,10 @@ function chooseBinary() {
     if (platform === 'linux' && arch === 'arm64') {
         return `main-linux-arm64-${VERSION}`
     }
-    if (platform === 'windows' && arch === 'x64') {
+    if (platform === 'win32' && arch === 'x64') {
         return `main-windows-amd64-${VERSION}`
     }
-    if (platform === 'windows' && arch === 'arm64') {
+    if (platform === 'win32' && arch === 'arm64') {
         return `main-windows-arm64-${VERSION}`
     }
 

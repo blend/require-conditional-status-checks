@@ -79,7 +79,7 @@ For more information on how this GitHub Action is developed, see the
 [DEVELOPMENT][4] document.
 
 [1]: https://docs.github.com/en/free-pro-team@latest/rest/reference/repos/#compare-two-commits
-[2]: https://github.com/blend/require-conditional-status-checks/blob/070363af576e7c117f8f331c6cc11c53c047873a/_images/example-run-public.png?raw=true
-[3]: https://github.com/blend/require-conditional-status-checks/blob/070363af576e7c117f8f331c6cc11c53c047873a/_images/example-run-ghe.png?raw=true
-[4]: https://github.com/blend/require-conditional-status-checks/blob/070363af576e7c117f8f331c6cc11c53c047873a/DEVELOPMENT.md
-[5]: https://github.com/blend/require-conditional-status-checks/tree/070363af576e7c117f8f331c6cc11c53c047873a
+[2]: https://github.com/blend/require-conditional-status-checks/blob/4b7de504558cac5083795023fe26985549ef6e0b/_images/example-run-public.png?raw=true
+[3]: https://github.com/blend/require-conditional-status-checks/blob/4b7de504558cac5083795023fe26985549ef6e0b/_images/example-run-ghe.png?raw=true
+[4]: https://github.com/blend/require-conditional-status-checks/blob/4b7de504558cac5083795023fe26985549ef6e0b/DEVELOPMENT.md
+[5]: https://github.com/blend/require-conditional-status-checks/tree/4b7de504558cac5083795023fe26985549ef6e0b

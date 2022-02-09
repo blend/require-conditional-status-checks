@@ -16,7 +16,7 @@ const childProcess = require('child_process')
 const os = require('os')
 const process = require('process')
 
-const VERSION = '070363af576e7c117f8f331c6cc11c53c047873a'
+const VERSION = '4b7de504558cac5083795023fe26985549ef6e0b'
 
 function chooseBinary() {
     const platform = os.platform()
@@ -34,10 +34,10 @@ function chooseBinary() {
     if (platform === 'linux' && arch === 'arm64') {
         return `main-linux-arm64-${VERSION}`
     }
-    if (platform === 'windows' && arch === 'x64') {
+    if (platform === 'win32' && arch === 'x64') {
         return `main-windows-amd64-${VERSION}`
     }
-    if (platform === 'windows' && arch === 'arm64') {
+    if (platform === 'win32' && arch === 'arm64') {
         return `main-windows-arm64-${VERSION}`
     }
 

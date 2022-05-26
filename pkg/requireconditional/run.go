@@ -17,6 +17,7 @@ package requireconditional
 import (
 	"context"
 	"fmt"
+	"sort"
 	"time"
 
 	"github.com/blend/go-sdk/ansi"
@@ -120,6 +121,7 @@ func CheckSatisfied(ctx context.Context, action *githubactions.Action, client *g
 		return required, err
 	}
 
+	sortCheckRuns(checkRuns)
 	known := map[string]github.CheckRun{}
 	for _, run := range checkRuns {
 		if run == nil || run.Name == nil {
@@ -197,6 +199,21 @@ func depaginateListCheckRunsForRef(ctx context.Context, checksAPI *github.Checks
 		listOpts.Page = resp.NextPage
 	}
 	return checkRuns, nil
+}
+
+func sortCheckRuns(checks []*github.CheckRun) {
+	// left is the lowest priority run, right is the highest priority
+	sort.SliceStable(checks, func(i, j int) bool {
+		left := checks[i]
+		right := checks[j]
+		if left == nil || left.ID == nil {
+			return true
+		}
+		if right == nil || right.ID == nil {
+			return false
+		}
+		return *left.ID < *right.ID
+	})
 }
 
 func safeDereference(s *string, fallback string) string {

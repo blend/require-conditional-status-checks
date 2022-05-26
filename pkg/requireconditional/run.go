@@ -115,13 +115,13 @@ func Wait(ctx context.Context, action *githubactions.Action, client *github.Clie
 // the status and conclusion of all checks associated with the `HEAD` SHA for
 // the current pull request and checks the status of the `required` checks.
 func CheckSatisfied(ctx context.Context, action *githubactions.Action, client *github.Client, cfg *Config, required []string) ([]string, error) {
-	lccr, _, err := client.Checks.ListCheckRunsForRef(ctx, cfg.GitHubOrg, cfg.GitHubRepo, cfg.HeadSHA, nil)
+	checkRuns, err := depaginateListCheckRunsForRef(ctx, client.Checks, cfg);
 	if err != nil {
 		return required, err
 	}
 
 	known := map[string]github.CheckRun{}
-	for _, run := range lccr.CheckRuns {
+	for _, run := range checkRuns {
 		if run == nil || run.Name == nil {
 			continue
 		}
@@ -179,6 +179,24 @@ func CheckSatisfied(ctx context.Context, action *githubactions.Action, client *g
 	}
 
 	return incomplete, nil
+}
+
+func depaginateListCheckRunsForRef(ctx context.Context, checksAPI *github.ChecksService, cfg *Config) ([]*github.CheckRun, error) {
+	listOpts := github.ListCheckRunsOptions{}
+	listOpts.PerPage = 100
+	var checkRuns []*github.CheckRun
+	for {
+		listResult, resp, err := checksAPI.ListCheckRunsForRef(ctx, cfg.GitHubOrg, cfg.GitHubRepo, cfg.HeadSHA, &listOpts)
+		if err != nil {
+			return checkRuns, err
+		}
+		checkRuns = append(checkRuns, listResult.CheckRuns...);
+		if resp.NextPage == 0 {
+			break
+		}
+		listOpts.Page = resp.NextPage
+	}
+	return checkRuns, nil
 }
 
 func safeDereference(s *string, fallback string) string {

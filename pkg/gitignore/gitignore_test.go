@@ -48,6 +48,8 @@ func TestGitignoreMatch(t *testing.T) {
 		{Name: "Anywhere in tree, file", Path: "so/many/layers/any.txt", Pattern: "any.txt", Expected: true},
 		{Name: "Anywhere in tree, dir", Path: "so/many/layers/here/", Pattern: "here/", Expected: true},
 		{Name: "Question mark", Path: "a/b/cXd.txt", Pattern: "a/b/c?d.txt", Expected: true},
+		{Name: "Question mark extension A", Path: "a/b/index.ts", Pattern: "a/b/**.tsx?", Expected: true},
+		{Name: "Question mark extension B", Path: "a/b/index.tsx", Pattern: "a/b/**.tsx?", Expected: true},
 		{Name: "Glob, Yes", Path: "a/b/cXYZ123d.txt", Pattern: "a/b/c*d.txt", Expected: true},
 		{Name: "Glob, No", Path: "a/b/c/XYZ123/d.txt", Pattern: "a/b/c*d.txt", Expected: false},
 		{Name: "Escape characters, No", Path: "a/b/cXd.txt", Pattern: "a/b/c\\?d.txt", Expected: false},
@@ -57,6 +59,9 @@ func TestGitignoreMatch(t *testing.T) {
 		{Name: "Normalize globs, One Path", Path: "ab/cd/fg/e.txt", Pattern: "a**b/c***d/**/e.txt", Expected: true},
 		{Name: "Normalize globs, Two Paths", Path: "ab/cd/fg/hi/e.txt", Pattern: "a**b/c***d/**/e.txt", Expected: true},
 		{Name: "Normalize globs, Zero Paths", Path: "ab/cd/e.txt", Pattern: "a**b/c***d/**/e.txt", Expected: true},
+		{Name: "Negated globs", Path: "a/b/c.md", Pattern: "!**.md", Expected: false},
+		{Name: "Negated globs, Yes", Path: "b/a/c.txt", Pattern: "!a/b/**", Expected: true},
+		{Name: "Negated globs, No", Path: "a/b/c.txt", Pattern: "!a/b/**", Expected: false},
 	}
 	for _, tc := range cases {
 		tc := tc // Re-bind so goroutine spawned by closure gets local reference (vs. range reference)
